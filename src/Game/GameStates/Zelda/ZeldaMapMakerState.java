@@ -1,16 +1,19 @@
 package Game.GameStates.Zelda;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Random;
+
 import Game.GameStates.State;
 import Game.Zelda.World.Map;
 import Game.Zelda.World.MapBuilder;
 import Main.Handler;
 import Resources.Images;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Created by AlexVR on 3/14/2020
@@ -34,6 +37,7 @@ public class ZeldaMapMakerState extends State {
     boolean rightClicked = false;
     boolean leftClicked = false;
     boolean linkPlaced = false;
+    Random rand = new Random();
 
     public ZeldaMapMakerState(Handler handler) {
         super(handler);
@@ -55,6 +59,10 @@ public class ZeldaMapMakerState extends State {
 
     @Override
     public void tick() {
+    	if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)) {
+    		int randTile = rand.nextInt(selectedList.size());
+    		counter = randTile;
+     	}
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_H)){
             handler.getDisplayScreen().confirm(
                     "Note: Some keys will require you to press them multiple times, not just why tbh.\n" +
