@@ -9,6 +9,7 @@ import Resources.Animation;
 import Resources.Images;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import static Game.GameStates.Zelda.ZeldaGameState.worldScale;
@@ -30,7 +31,7 @@ public class Link extends BaseMovingEntity {
     public Link(int x, int y, BufferedImage[] sprite, Handler handler) {
         super(x, y, sprite, handler);
         speed = 4;
-        health = 6;
+        health = 3;
         BufferedImage[] animList = new BufferedImage[2];
         animList[0] = sprite[4];
         animList[1] = sprite[5];
@@ -40,6 +41,9 @@ public class Link extends BaseMovingEntity {
 
     @Override
     public void tick() {
+    	if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_H) && health<3) {
+    		health++;
+    	}
         if (movingMap){
             switch (movingTo) {
                 case RIGHT:
@@ -160,6 +164,10 @@ public class Link extends BaseMovingEntity {
                 g.drawImage(animation.getCurrentFrame(),x , y, width, height  , null);
             }
             g.drawImage(sprite, x , y, width , height , null);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("TimesRoman",Font.PLAIN, 50));
+            g.drawString("Test", handler.getWidth()/2+handler.getWidth()/4, handler.getHeight()-45);
+            
         }
     }
 
@@ -252,5 +260,8 @@ public class Link extends BaseMovingEntity {
         bounds.y = y;
         changeIntersectingBounds();
 
+    }
+    public int getHealth() {
+    	return health;
     }
 }

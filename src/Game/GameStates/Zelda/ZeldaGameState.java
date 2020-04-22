@@ -113,6 +113,14 @@ public class ZeldaGameState extends State {
             g.fillRect(xOffset + stageWidth, 0, handler.getWidth(), handler.getHeight());
             g.fillRect(0, 0, handler.getWidth(), yOffset);
             g.fillRect(0, yOffset + stageHeight, handler.getWidth(), handler.getHeight());
+            
+            g.setColor(new Color(181,49,33));
+            g.setFont(new Font("Arial",Font.PLAIN, 50));
+            g.drawString("-LIFE-", handler.getWidth()/2+handler.getWidth()/4, handler.getHeight()/2-handler.getHeight()/4-200);
+            for(int i=0;i<handler.getZeldaGameState().link.getHealth();i++) {
+            	g.drawImage(Images.zeldaHeart,(handler.getWidth()/2+handler.getWidth()/4)+i*+50,handler.getHeight()/2-handler.getHeight()/4-150, 40, 40,null);
+            }
+            
         }
 
     }

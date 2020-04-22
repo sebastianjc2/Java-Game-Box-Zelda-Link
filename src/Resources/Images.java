@@ -55,8 +55,11 @@ public class Images {
 
     public SpriteSheet zeldaSpriteSheet;
     public SpriteSheet storySpriteSheet;
+    public SpriteSheet zeldaItemSpriteSheet;
     public static BufferedImage zeldaTriforceLogo;
     public static BufferedImage zeldaMap;
+    public static BufferedImage zeldaItems;
+    public static BufferedImage zeldaHeart;
 
     public static ArrayList<BufferedImage> zeldaTiles;
     public static BufferedImage[] zeldaTitleFrames;
@@ -221,6 +224,9 @@ public class Images {
             zeldaMap = createImageTransparent(zeldaMap,"zelddaMap_0,128,0,green",new Color(0,128,0).getRGB());
             zeldaImageSheet = createImageTransparent(zeldaImageSheet,"tileSets_0,120,0,green",new Color(0,128,0).getRGB());
             zeldaSpriteSheet = new SpriteSheet(zeldaImageSheet);
+            zeldaItems = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/items.png"));
+            zeldaItemSpriteSheet = new SpriteSheet(zeldaItems); 
+            zeldaHeart = zeldaItemSpriteSheet.crop(0,0,7,8);
 
             storyImageSheet = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/title.png"));
             storySpriteSheet = new SpriteSheet(storyImageSheet);
