@@ -24,7 +24,7 @@ public class ZeldaMapMakerState extends State{
 	int counter = 0;
 	int selector = 0;
 	boolean showingTiles= false;
-	ArrayList<BufferedImage> selectedList;
+	ArrayList<BufferedImage> selectedList, tempList = new ArrayList<BufferedImage>();
 
 	public static int scale =2;
 	public static int pixelsPerSquare = Images.zeldaTiles.get(22).getWidth()*scale;
@@ -38,7 +38,8 @@ public class ZeldaMapMakerState extends State{
 	boolean leftClicked = false;
 	boolean linkPlaced = false;
 	Random rand = new Random();
-	public int count=0,randSet,randTile;
+	public int count=0,randSet,randTile,tempVal;
+	private double halfMark;
 	boolean genRand;
 
 	public ZeldaMapMakerState(Handler handler) {
@@ -64,6 +65,13 @@ public class ZeldaMapMakerState extends State{
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)) { //Press 'R' to pick a random tile 
 			int randTile = rand.nextInt(selectedList.size());
 			counter = randTile;
+		}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_B)) {
+			halfMark=Math.round(selectedList.size()/2.0);
+			tempList.add(selectedList.get(counter)); //Adds selected tile to tempList
+			selectedList.set(counter, selectedList.get((int)halfMark)); //Sets tile in the half position, to the selected tile
+			selectedList.set((int)halfMark, tempList.get(0)); //Set tile from the tempList, to the half position in selected tile
+			tempList.clear(); //Clears tempList
 		}
 		if((handler.getKeyManager().shift && handler.getKeyManager().rKey) && !genRand) { //Activates when Shift + R are pressed, continues in next if...
 			handler.getKeyManager().shift=false;
