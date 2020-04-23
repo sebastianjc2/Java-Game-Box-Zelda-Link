@@ -164,9 +164,6 @@ public class Link extends BaseMovingEntity {
                 g.drawImage(animation.getCurrentFrame(),x , y, width, height  , null);
             }
             g.drawImage(sprite, x , y, width , height , null);
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("TimesRoman",Font.PLAIN, 50));
-            g.drawString("Test", handler.getWidth()/2+handler.getWidth()/4, handler.getHeight()-45);
             
         }
     }
