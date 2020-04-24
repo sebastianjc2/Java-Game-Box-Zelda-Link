@@ -167,7 +167,14 @@ public class ZeldaMapMakerState extends State{
 						l[1] = yCoords;
 						drawStack.add(l);
 						linkPlaced = true;
-					} else {
+					} else if(handler.getKeyManager().nKey) { // Hold 'N' for new teleporter tile
+						grid.get(xCoords).set(yCoords, Images.zeldaNewTeleporter);
+						int[] l = new int[2];
+						l[0] = xCoords;
+						l[1] = yCoords;
+						drawStack.add(l);
+					}
+					else {
 						if (linkPlaced && handler.getKeyManager().shift){
 							handler.getDisplayScreen().confirm("You cant place more than one Link per map, I mean, why would you?");
 							return;
@@ -374,7 +381,10 @@ public class ZeldaMapMakerState extends State{
 		}else{
 			g.drawImage(selectedList.get(counter),handler.getMouseManager().getMouseX(),handler.getMouseManager().getMouseY(),selectedList.get(counter).getWidth()*scale,selectedList.get(counter).getHeight()*scale,null);
 		}
-
+		
+		if(handler.getKeyManager().nKey) { // Hold 'N' to see new teleporter tile
+			g.drawImage(Images.zeldaNewTeleporter,handler.getMouseManager().getMouseX(),handler.getMouseManager().getMouseY(),selectedList.get(counter).getWidth()*scale,selectedList.get(counter).getHeight()*scale,null);
+		}
 
 		if (showingTiles){
 			g.setColor(Color.LIGHT_GRAY);
