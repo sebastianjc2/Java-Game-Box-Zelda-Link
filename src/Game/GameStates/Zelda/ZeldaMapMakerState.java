@@ -125,7 +125,7 @@ public class ZeldaMapMakerState extends State{
 			}else {
 
 				selector++;
-				if (selector > 4) {
+				if (selector > 5) {
 					selector = 0;
 				}
 				counter = 0;
@@ -145,6 +145,8 @@ public class ZeldaMapMakerState extends State{
 				case 4:
 					selectedList = Images.graveTiles;
 					break;
+				case 5:
+					selectedList = Images.zeldaNewTeleporter;
 				}
 			}
 		}
@@ -167,13 +169,7 @@ public class ZeldaMapMakerState extends State{
 						l[1] = yCoords;
 						drawStack.add(l);
 						linkPlaced = true;
-					} else if(handler.getKeyManager().nKey) { // Hold 'N' for new teleporter tile
-						grid.get(xCoords).set(yCoords, Images.zeldaNewTeleporter);
-						int[] l = new int[2];
-						l[0] = xCoords;
-						l[1] = yCoords;
-						drawStack.add(l);
-					}
+					} 
 					else {
 						if (linkPlaced && handler.getKeyManager().shift){
 							handler.getDisplayScreen().confirm("You cant place more than one Link per map, I mean, why would you?");
@@ -283,6 +279,14 @@ public class ZeldaMapMakerState extends State{
 						counter++;
 					}
 					break;
+				case 5:
+					if(counter == 3) {
+						counter=0;
+					}
+					else {
+						counter++;
+					}
+					break;
 				default:
 					if (counter == 41) {
 						counter = 0;
@@ -302,6 +306,14 @@ public class ZeldaMapMakerState extends State{
 					if (counter == 0) {
 						counter = 29;
 					} else {
+						counter--;
+					}
+					break;
+				case 5:
+					if(counter == 0) {
+						counter = 3;
+					}
+					else {
 						counter--;
 					}
 					break;
@@ -382,9 +394,6 @@ public class ZeldaMapMakerState extends State{
 			g.drawImage(selectedList.get(counter),handler.getMouseManager().getMouseX(),handler.getMouseManager().getMouseY(),selectedList.get(counter).getWidth()*scale,selectedList.get(counter).getHeight()*scale,null);
 		}
 		
-		if(handler.getKeyManager().nKey) { // Hold 'N' to see new teleporter tile
-			g.drawImage(Images.zeldaNewTeleporter,handler.getMouseManager().getMouseX(),handler.getMouseManager().getMouseY(),selectedList.get(counter).getWidth()*scale,selectedList.get(counter).getHeight()*scale,null);
-		}
 
 		if (showingTiles){
 			g.setColor(Color.LIGHT_GRAY);

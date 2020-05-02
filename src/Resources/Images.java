@@ -62,7 +62,7 @@ public class Images {
     public static BufferedImage zeldaItems;
     public static BufferedImage zeldaHeart;
     public static BufferedImage zeldaNewTile;
-    public static BufferedImage zeldaNewTeleporter;
+    public static ArrayList<BufferedImage> zeldaNewTeleporter;
     
     public static ArrayList<BufferedImage> zeldaTiles;
     public static BufferedImage[] zeldaTitleFrames;
@@ -112,6 +112,7 @@ public class Images {
         caveTiles = new ArrayList<>();
         graveTiles = new ArrayList<>();
         mountainTiles = new ArrayList<>();
+        zeldaNewTeleporter = new ArrayList<>();
 
         zeldaLinkFrames = new BufferedImage[8];
 
@@ -232,7 +233,11 @@ public class Images {
             zeldaHeart = zeldaItemSpriteSheet.crop(0,0,7,8);
             zeldaNewTile = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/enemy.png"));
             zeldaNewTiles = new SpriteSheet(zeldaNewTile);
-            zeldaNewTeleporter = zeldaNewTiles.crop(109,227,16,16);
+            zeldaNewTeleporter.add(zeldaNewTiles.crop(191, 166,16,16)); // Right teleporter
+            zeldaNewTeleporter.add(zeldaNewTiles.crop(208, 166,16,16)); // Left teleporter
+            zeldaNewTeleporter.add(zeldaNewTiles.crop(225, 166,16,16)); // Up teleporter
+            zeldaNewTeleporter.add(zeldaNewTiles.crop(242, 166,16,16)); // Down teleporter
+            
             
 
             storyImageSheet = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/title.png"));

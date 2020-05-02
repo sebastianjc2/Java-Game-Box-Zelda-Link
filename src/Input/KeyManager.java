@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
 public class KeyManager implements KeyListener {
 
 	private boolean[] keys,justPressed,cantPress;
-	public boolean up=false, down=false, left=false, right=false,shift, rKey, nKey;
+	public boolean up=false, down=false, left=false, right=false,shift, rKey;
 	public boolean pausebutt=false;
 
 
@@ -57,9 +57,6 @@ public class KeyManager implements KeyListener {
 		if(e.getKeyCode()==KeyEvent.VK_R) {
 			rKey=true;
 		}
-		if(e.getKeyCode()==KeyEvent.VK_N) {
-			nKey=true;
-		}
 		keys[e.getKeyCode()] = true;
 	}
 
@@ -67,9 +64,6 @@ public class KeyManager implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() < 0 || e.getKeyCode() >= keys.length)
 			return;
-		if(e.getKeyCode()==KeyEvent.VK_N) {
-			nKey=false;
-		}
 		keys[e.getKeyCode()] = false;
 	}
 

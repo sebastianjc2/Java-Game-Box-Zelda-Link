@@ -1,22 +1,28 @@
 package Game.Zelda.World;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+
+import javax.imageio.ImageIO;
+
 import Game.GameStates.Zelda.ZeldaMapMakerState;
 import Game.Zelda.Entities.Dynamic.MMLink;
+import Game.Zelda.Entities.Statics.MMNewTeleport;
 import Game.Zelda.Entities.Statics.MMSolidStaticEntities;
 import Game.Zelda.Entities.Statics.MMTeleport;
 import Game.Zelda.Entities.Statics.MMWalkingSolidEntities;
 import Main.Handler;
 import Resources.Images;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
 
 public class MapBuilder {
 
@@ -670,8 +676,20 @@ public class MapBuilder {
 					MMWalkingSolidEntities ghost1 = new MMWalkingSolidEntities(xPos, yPos, Images.forestTiles.get(0), handler);
 					mapInCreation.addBlock(ghost1);
 				}
-				else if(currentPixel == newTeleporter) {
-					MMWalkingSolidEntities ghost = new MMWalkingSolidEntities(xPos, yPos, Images.zeldaNewTeleporter,handler);
+				else if(currentPixel == newTeleporter1) {
+					MMNewTeleport ghost = new MMNewTeleport(xPos, yPos, Images.zeldaNewTeleporter.get(0),handler);
+					mapInCreation.addBlock(ghost);
+				}
+				else if(currentPixel == newTeleporter2) {
+					MMNewTeleport ghost = new MMNewTeleport(xPos, yPos, Images.zeldaNewTeleporter.get(1),handler);
+					mapInCreation.addBlock(ghost);
+				}
+				else if(currentPixel == newTeleporter3) {
+					MMNewTeleport ghost = new MMNewTeleport(xPos, yPos, Images.zeldaNewTeleporter.get(2),handler);
+					mapInCreation.addBlock(ghost);
+				}
+				else if(currentPixel == newTeleporter4) {
+					MMNewTeleport ghost = new MMNewTeleport(xPos, yPos, Images.zeldaNewTeleporter.get(3),handler);
 					mapInCreation.addBlock(ghost);
 				}
 
@@ -1098,8 +1116,17 @@ public class MapBuilder {
 				}else if (Images.zeldaLinkFrames[0].equals(info.get(x).get(y))){
 					image.setRGB(x,y,Link);
 				}
-				else if(Images.zeldaNewTeleporter.equals(info.get(x).get(y))) {
-					image.setRGB(x, y, newTeleporter);
+				else if(Images.zeldaNewTeleporter.get(0).equals(info.get(x).get(y))) {
+					image.setRGB(x, y, newTeleporter1);
+				}
+				else if(Images.zeldaNewTeleporter.get(1).equals(info.get(x).get(y))) {
+					image.setRGB(x, y, newTeleporter2);
+				}
+				else if(Images.zeldaNewTeleporter.get(2).equals(info.get(x).get(y))) {
+					image.setRGB(x, y, newTeleporter3);
+				}
+				else if(Images.zeldaNewTeleporter.get(3).equals(info.get(x).get(y))) {
+					image.setRGB(x, y, newTeleporter4);
 				}
 
 
@@ -1376,5 +1403,8 @@ public class MapBuilder {
 	public static int grave40 = new Color(198, 198, 198).getRGB();
 	public static int grave41 = new Color(100,100 ,100).getRGB();
 
-	public static int newTeleporter = new Color(3,27,20).getRGB(); //New Tile/Teleporter
+	public static int newTeleporter1 = new Color(3,27,20).getRGB(); // Right
+	public static int newTeleporter2 = new Color(3,28,20).getRGB(); // Left
+	public static int newTeleporter3 = new Color(3,29,20).getRGB(); // Up
+	public static int newTeleporter4 = new Color(3,30,20).getRGB(); // Down
 }
