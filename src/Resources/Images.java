@@ -52,13 +52,25 @@ public class Images {
 
     public static BufferedImage zeldaImageSheet;
     public static BufferedImage storyImageSheet;
+    public static BufferedImage zeldaEdited;
+
 
     public SpriteSheet zeldaSpriteSheet;
+    public SpriteSheet zeldaEditedSpriteSheet;
+
     public SpriteSheet storySpriteSheet;
     public SpriteSheet zeldaItemSpriteSheet;
     public SpriteSheet zeldaNewTiles;
+    public SpriteSheet zeldaNPCSpriteSheet;
+    public SpriteSheet enemySpriteSheet;
+
+    public static BufferedImage zeldaFire;
+    public static BufferedImage[] zeldaEnemy;
+    public static BufferedImage zeldaOldMan;
+    public static BufferedImage zeldaCaveSword;
     public static BufferedImage zeldaTriforceLogo;
     public static BufferedImage zeldaMap;
+    public static BufferedImage zeldaNPC;
     public static BufferedImage zeldaItems;
     public static BufferedImage zeldaHeart;
     public static BufferedImage zeldaNewTile;
@@ -83,6 +95,11 @@ public class Images {
     public static BufferedImage EnemyOverwoldImage;
     public SpriteSheet EnemyOverwoldSpriteSheet;
     public static BufferedImage[] bouncyEnemyFrames;
+    
+    public static BufferedImage[] attackUp;
+    public static BufferedImage[] attackDown;
+    public static BufferedImage[] attackRight;
+    public static BufferedImage[] attackLeft;
 
     public Images() {
 
@@ -102,8 +119,10 @@ public class Images {
         pacmanUp = new BufferedImage[2];
         pacmanDown = new BufferedImage[2];
         bound = new BufferedImage[16];
-
+        
+        
         zeldaTiles = new ArrayList<>();
+        zeldaEnemy = new BufferedImage[2];
         zeldaTitleFrames = new BufferedImage[6];
         zeldaStoryFrames = new BufferedImage[8];
         zeldaWorldLayoutTiles = new ArrayList<>();
@@ -117,7 +136,12 @@ public class Images {
         zeldaLinkFrames = new BufferedImage[8];
 
         bouncyEnemyFrames = new BufferedImage[2];
-
+        
+        attackUp = new BufferedImage[2];
+        attackDown = new BufferedImage[2];
+        attackRight = new BufferedImage[2];
+        attackLeft = new BufferedImage[2];
+       
 
 
         try {
@@ -222,7 +246,16 @@ public class Images {
             intro = ImageIO.read(getClass().getResourceAsStream("/UI/SpriteSheets/PacMan/intro.png"));
             start = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/startScreen.png"));
 
+            zeldaNPC = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/npc.png"));
+            zeldaNPC = createImageTransparent(zeldaNPC, "npc.png", new Color(116,116, 116).getRGB());
+            zeldaNPCSpriteSheet = new SpriteSheet(zeldaNPC);
+            zeldaOldMan = zeldaNPCSpriteSheet.crop(1,11,16,16);
+            
             zeldaImageSheet = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/tileSet.png"));
+            zeldaEdited = ImageIO.read(getClass().getResourceAsStream("/Edited/link_116,116,116_gray.png"));
+            zeldaEditedSpriteSheet = new SpriteSheet(zeldaEdited);
+            zeldaFire = zeldaEditedSpriteSheet.crop(191,185,16,16);
+            zeldaCaveSword = zeldaEditedSpriteSheet.crop(1,154, 7, 16);
             zeldaTriforceLogo = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/triforceLogo.png"));
             zeldaMap = ImageIO.read(getClass().getResourceAsStream("/UI/Backgrounds/Zelda/map.png"));
             zeldaMap = createImageTransparent(zeldaMap,"zelddaMap_0,128,0,green",new Color(0,128,0).getRGB());
@@ -284,6 +317,21 @@ public class Images {
 
             bouncyEnemyFrames[0] = EnemyOverwoldSpriteSheet.crop(162,90,16,16);
             bouncyEnemyFrames[1] = EnemyOverwoldSpriteSheet.crop(179,90,16,16);
+            
+            zeldaEnemy[0] =EnemyOverwoldSpriteSheet.crop(162, 94, 16, 12);
+            zeldaEnemy[1] =EnemyOverwoldSpriteSheet.crop(179, 91, 16, 15);
+            
+            attackUp[0] = zeldaLinkSpriteSheet.crop(18, 97, 16, 28);
+            attackUp[1] = zeldaLinkSpriteSheet.crop(54, 106, 12, 19);
+            
+            attackDown[0] = zeldaLinkSpriteSheet.crop(35, 47, 15, 23);
+            attackDown[1] = zeldaLinkSpriteSheet.crop(18, 47, 15, 27);
+            
+            attackRight[0] = zeldaLinkSpriteSheet.crop(45, 78, 24, 16);
+            attackRight[1] = zeldaLinkSpriteSheet.crop(18, 78, 27, 15);
+            
+            attackLeft[0] = Images.flipHorizontal(attackRight[0]);
+            attackLeft[1] = Images.flipHorizontal(attackRight[1]);
 
             //dungeon one tiles
             zeldaTiles.add(zeldaSpriteSheet.crop(815,11,32,32));

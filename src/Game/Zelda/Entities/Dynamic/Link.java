@@ -23,8 +23,8 @@ public class Link extends BaseMovingEntity {
 
 
     private final int animSpeed = 120;
-    int newMapX=0,newMapY=0,xExtraCounter=0,yExtraCounter=0;
-    public boolean movingMap = false;
+    int newMapX=0,newMapY=0,xExtraCounter=0,yExtraCounter=0, mult = 2;
+    public boolean movingMap = false, attacking=false;
     Direction movingTo;
 
 
@@ -37,71 +37,76 @@ public class Link extends BaseMovingEntity {
         animList[1] = sprite[5];
 
         animation = new Animation(animSpeed,animList);
+        //Animation attackAnim = new Animation(animSpeed, attackAnimList);
     }
 
     @Override
     public void tick() {
+  
     	if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_H) && health<3) {
     		health++;
     	}
         if (movingMap){
             switch (movingTo) {
                 case RIGHT:
-                    handler.getZeldaGameState().cameraOffsetX++;
-                    newMapX++;
+                    handler.getZeldaGameState().cameraOffsetX+=3;
+                    newMapX+=3;
                     if (xExtraCounter>0){
-                        x+=2;
-                        xExtraCounter--;
+                        x+=6;
+                        xExtraCounter-=3;
                         animation.tick();
 
                     }else{
-                        x--;
+                        x-=3;
                     }
                     break;
                 case LEFT:
-                    handler.getZeldaGameState().cameraOffsetX--;
-                    newMapX--;
+                    handler.getZeldaGameState().cameraOffsetX-=3;
+                    newMapX-=3;
                     if (xExtraCounter>0){
-                        x-=2;
-                        xExtraCounter--;
+                        x-=6;
+                        xExtraCounter-=3;
                         animation.tick();
 
                     }else{
-                        x++;
+                        x+=3;
                     }
                     break;
                 case UP:
-                    handler.getZeldaGameState().cameraOffsetY--;
-                    newMapY++;
+                    handler.getZeldaGameState().cameraOffsetY-=3;
+                    newMapY+=3;
                     if (yExtraCounter>0){
-                        y-=2;
-                        yExtraCounter--;
+                        y-=6;
+                        yExtraCounter-=3;
                         animation.tick();
 
                     }else{
-                        y++;
+                        y+=3;
                     }
                     break;
                 case DOWN:
-                    handler.getZeldaGameState().cameraOffsetY++;
-                    newMapY--;
+                    handler.getZeldaGameState().cameraOffsetY+=3;
+                    newMapY-=3;
                     if (yExtraCounter>0){
-                        y+=2;
-                        yExtraCounter--;
+                        y+=6;
+                        yExtraCounter-=3;
                         animation.tick();
                     }else{
-                        y--;
+                        y-=3;
                     }
                     break;
             }
             bounds = new Rectangle(x,y,width,height);
             changeIntersectingBounds();
-            if (newMapX == 0 && newMapY == 0){
+            
+            // STOPPING THE CAMERA
+            if (newMapX == 0 && newMapY ==0){
                 movingMap = false;
                 movingTo = null;
                 newMapX = 0;
                 newMapY = 0;
             }
+           // link moving animations
         }else {
             if (handler.getKeyManager().up) {
                 if (direction != UP) {
@@ -188,6 +193,8 @@ public class Link extends BaseMovingEntity {
                 }
             }
         }
+        
+        //overworld
         else {
             for (SolidStaticEntities objects : handler.getZeldaGameState().objects.get(handler.getZeldaGameState().mapX).get(handler.getZeldaGameState().mapY)) {
                 if ((objects instanceof SectionDoor) && objects.bounds.intersects(bounds) && direction == ((SectionDoor) objects).direction) {

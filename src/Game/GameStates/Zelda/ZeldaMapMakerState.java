@@ -21,8 +21,8 @@ import Resources.Images;
 public class ZeldaMapMakerState extends State{
 	ArrayList<ArrayList<BufferedImage>> grid;
 
-	int counter = 0;
-	int selector = 0;
+	int counter = 0; // tile
+	int selector = 0; // index tileset
 	boolean showingTiles= false;
 	ArrayList<BufferedImage> selectedList, tempList = new ArrayList<BufferedImage>();
 
@@ -272,7 +272,7 @@ public class ZeldaMapMakerState extends State{
 				handler.getDisplayScreen().confirm("Please click where the last tile will teleport too.");
 			}else {
 				switch (selector) {
-				case 0:
+				case 0: //dungeon
 					if (counter == 29) {
 						counter = 0;
 					} else {
@@ -287,7 +287,7 @@ public class ZeldaMapMakerState extends State{
 						counter++;
 					}
 					break;
-				default:
+				default: // not the dungeon tiles
 					if (counter == 41) {
 						counter = 0;
 					} else {
