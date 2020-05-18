@@ -9,14 +9,10 @@ import Resources.Animation;
 import Resources.Images;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Random;
 
-import static Game.GameStates.Zelda.ZeldaGameState.worldScale;
 import static Game.Zelda.Entities.Dynamic.Direction.DOWN;
-import static Game.Zelda.Entities.Dynamic.Direction.UP;
 
 /**
  * Created by AlexVR on 3/15/2020
@@ -51,32 +47,32 @@ public class Enemy extends BaseMovingEntity {
 			test = new Random().nextInt(4);
 			cooldown = 60*1;
 		}
-		
-			cooldown--;
-			switch(test) {
-			
-			case 0: 
-				direction = Direction.UP;
-				move(direction);
-				break;
-			case 1:
-				direction = Direction.DOWN;
-				move(direction);
-				break;
-			case 2:
-				direction = Direction.RIGHT;
-				move(direction);
-				break;
-			case 3:
-				direction = Direction.LEFT;
-				move(direction);
-				break;
-			default:
-				direction = Direction.RIGHT;
-				move(direction);
-				break;
-			}
-		
+
+		cooldown--;
+		switch(test) {
+
+		case 0: 
+			direction = Direction.UP;
+			move(direction);
+			break;
+		case 1:
+			direction = Direction.DOWN;
+			move(direction);
+			break;
+		case 2:
+			direction = Direction.RIGHT;
+			move(direction);
+			break;
+		case 3:
+			direction = Direction.LEFT;
+			move(direction);
+			break;
+		default:
+			direction = Direction.RIGHT;
+			move(direction);
+			break;
+		}
+
 
 
 
@@ -84,12 +80,15 @@ public class Enemy extends BaseMovingEntity {
 
 	@Override
 	public void render(Graphics g) {
-		if (moving) {
-			g.drawImage(animation.getCurrentFrame(),x , y, width , height  , null);
+		handler.getZeldaGameState();
+		if(!(ZeldaGameState.ded)) {
+			if (moving) {
+				g.drawImage(animation.getCurrentFrame(),x , y, width , height  , null);
 
-		}
-		else {
-			g.drawImage(sprite, x , y, width , height , null);
+			}
+			else {
+				g.drawImage(sprite, x , y, width , height , null);
+			}
 		}
 	}
 
@@ -119,42 +118,42 @@ public class Enemy extends BaseMovingEntity {
 					if (!(objects instanceof DungeonDoor)) {
 						movingMap = true;
 						movingTo = ((SectionDoor) objects).direction;
-//						switch (((SectionDoor) objects).direction) {
-//						case RIGHT:
-//							newMapX = -(((handler.getZeldaGameState().mapWidth) + 1) * worldScale);
-//							newMapY = 0;
-//							handler.getZeldaGameState().mapX++;
-//							xExtraCounter = 8 * worldScale + (2 * worldScale);
-//							break;
-//						case LEFT:
-//							newMapX = (((handler.getZeldaGameState().mapWidth) + 1) * worldScale);
-//							newMapY = 0;
-//							handler.getZeldaGameState().mapX--;
-//							xExtraCounter = 8 * worldScale + (2 * worldScale);
-//							break;
-//						case UP:
-//							newMapX = 0;
-//							newMapY = -(((handler.getZeldaGameState().mapHeight) + 1) * worldScale);
-//							handler.getZeldaGameState().mapY--;
-//							yExtraCounter = 8 * worldScale + (2 * worldScale);
-//							break;
-//						case DOWN:
-//							newMapX = 0;
-//							newMapY = (((handler.getZeldaGameState().mapHeight) + 1) * worldScale);
-//							handler.getZeldaGameState().mapY++;
-//							yExtraCounter = 8 * worldScale + (2 * worldScale);
-//							break;
-//						}
+						//						switch (((SectionDoor) objects).direction) {
+						//						case RIGHT:
+						//							newMapX = -(((handler.getZeldaGameState().mapWidth) + 1) * worldScale);
+						//							newMapY = 0;
+						//							handler.getZeldaGameState().mapX++;
+						//							xExtraCounter = 8 * worldScale + (2 * worldScale);
+						//							break;
+						//						case LEFT:
+						//							newMapX = (((handler.getZeldaGameState().mapWidth) + 1) * worldScale);
+						//							newMapY = 0;
+						//							handler.getZeldaGameState().mapX--;
+						//							xExtraCounter = 8 * worldScale + (2 * worldScale);
+						//							break;
+						//						case UP:
+						//							newMapX = 0;
+						//							newMapY = -(((handler.getZeldaGameState().mapHeight) + 1) * worldScale);
+						//							handler.getZeldaGameState().mapY--;
+						//							yExtraCounter = 8 * worldScale + (2 * worldScale);
+						//							break;
+						//						case DOWN:
+						//							newMapX = 0;
+						//							newMapY = (((handler.getZeldaGameState().mapHeight) + 1) * worldScale);
+						//							handler.getZeldaGameState().mapY++;
+						//							yExtraCounter = 8 * worldScale + (2 * worldScale);
+						//							break;
+						//						}
 						return;
 					}
-//					else {
-//						if (((DungeonDoor) objects).name.equals("caveStartEnter")) {
-//							ZeldaGameState.inCave = true;
-//							x = ((DungeonDoor) objects).nLX;
-//							y = ((DungeonDoor) objects).nLY;
-//							direction = UP;
-//						}
-//					}
+					//					else {
+					//						if (((DungeonDoor) objects).name.equals("caveStartEnter")) {
+					//							ZeldaGameState.inCave = true;
+					//							x = ((DungeonDoor) objects).nLX;
+					//							y = ((DungeonDoor) objects).nLY;
+					//							direction = UP;
+					//						}
+					//					}
 				}
 				else if (!(objects instanceof SectionDoor) && objects.bounds.intersects(interactBounds)) {
 					//dont move

@@ -36,7 +36,7 @@ public class Link extends BaseMovingEntity {
         animList[0] = sprite[4];
         animList[1] = sprite[5];
 
-        animation = new Animation(animSpeed,animList);
+        animation = new Animation(animSpeed ,animList);
         //Animation attackAnim = new Animation(animSpeed, attackAnimList);
     }
 
@@ -45,6 +45,48 @@ public class Link extends BaseMovingEntity {
   
     	if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_H) && health<3) {
     		health++;
+    	}
+    	
+    	handler.getZeldaGameState();
+		if(handler.getKeyManager().attack && ZeldaGameState.pickUp == true) {
+    		 if (direction == UP) {
+                 BufferedImage[] animList = new BufferedImage[2];
+                 animList[0] = Images.attackUp[0];
+                 animList[1] = Images.attackUp[1];
+                 animation = new Animation(animSpeed, animList);
+                 
+                 animation.tick();
+                 attacking = true;
+             }
+    		 
+    		 else if (direction == DOWN) {
+                 BufferedImage[] animList = new BufferedImage[2];
+                 animList[0] = Images.attackDown[0];
+                 animList[1] = Images.attackDown[1];
+                 animation = new Animation(animSpeed, animList);
+                 animation.tick();
+                 attacking = true;
+             }
+    		 else if (direction == Direction.RIGHT) {
+                 BufferedImage[] animList = new BufferedImage[2];
+                 animList[0] = Images.attackRight[0];
+                 animList[1] = Images.attackRight[1];
+                 animation = new Animation(animSpeed, animList);
+                
+                 animation.tick();
+                 attacking = true;
+                 
+             }
+    		 else if (direction == Direction.LEFT) {
+                 BufferedImage[] animList = new BufferedImage[2];
+                 animList[0] = Images.attackLeft[0];
+                 animList[1] = Images.attackLeft[1];
+                 animation = new Animation(animSpeed, animList);
+                
+                 animation.tick();
+                 attacking = true;
+             }
+    		 
     	}
         if (movingMap){
             switch (movingTo) {
@@ -168,9 +210,17 @@ public class Link extends BaseMovingEntity {
             if (movingMap){
                 g.drawImage(animation.getCurrentFrame(),x , y, width, height  , null);
             }
-            g.drawImage(sprite, x , y, width , height , null);
+            handler.getZeldaGameState();
+			if(ZeldaGameState.pickUp && handler.getKeyManager().attack) {
+            	g.drawImage(animation.getCurrentFrame(), x, y, width, height, null);
+            }
+			
+			else{
+				g.drawImage(sprite, x , y, width , height , null);
+			}
             
         }
+       
     }
 
     @Override

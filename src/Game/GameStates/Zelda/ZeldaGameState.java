@@ -28,13 +28,14 @@ public class ZeldaGameState extends State {
     public int mapX,mapY,mapWidth,mapHeight;
 
     public ArrayList<ArrayList<ArrayList<SolidStaticEntities>>> objects;
-    public ArrayList <ArrayList<SolidStaticEntities>> toRemove;
     public ArrayList<ArrayList<ArrayList<BaseMovingEntity>>> enemies;
+    int counter = 22;
     public Link link;
     Animation pickUpAnim;
     public Enemy enemy;
-    public static boolean inCave = false, pickUp = false;
+    public static boolean inCave = false, pickUp = false, ded=false;
     public ArrayList<SolidStaticEntities> caveObjects;
+	
 
 
 
@@ -66,9 +67,9 @@ public class ZeldaGameState extends State {
         addWorldObjects();
 
         BufferedImage[] pickUpAnimList = new BufferedImage[2];
-        pickUpAnimList[0] = Images.attackUp[0];
-        pickUpAnimList[1] = Images.attackUp[1];
-        pickUpAnim = new Animation(60, pickUpAnimList);
+        pickUpAnimList[0] = Images.attackDown[0];
+        pickUpAnimList[1] = Images.attackDown[1];
+        pickUpAnim = new Animation(480, pickUpAnimList);
         link = new Link(xOffset+(stageWidth/2),yOffset + (stageHeight/2),Images.zeldaLinkFrames,handler);
         //enemy = new Enemy(xOffset+(stageWidth/2),yOffset + (stageHeight/2),Images.zeldaEnemy,handler);
 
@@ -81,12 +82,16 @@ public class ZeldaGameState extends State {
     public void tick() {
         link.tick();
         if (inCave){
+        	ArrayList<SolidStaticEntities> toRemove = new ArrayList<>();
         	for(SolidStaticEntities objects : caveObjects) {
         		if(objects.bounds.intersects(link.getInteractBounds()) && objects.sprite==Images.zeldaCaveSword) {
         			pickUp = true;
         			pickUpAnim.tick();
-        			//toRemove.add(objects);
+        			toRemove.add(objects);
         		}
+        	}
+        	for (SolidStaticEntities removing: toRemove) {
+        		handler.getZeldaGameState().caveObjects.remove(removing);
         	}
         }else {
             if (!link.movingMap) {
@@ -95,9 +100,22 @@ public class ZeldaGameState extends State {
                 }
                 for (BaseMovingEntity entity : enemies.get(mapX).get(mapY)) {
                     entity.tick();
-                    if (entity.getInteractBounds().intersects(link.getInteractBounds())){
-                        link.damage(1);
+                    if (entity.getInteractBounds().intersects(link.getInteractBounds()) && handler.getKeyManager().attack==false){
+                    	if(counter <= 0) {
+                    		link.damage(1);
+                    		counter=22;
+                    	}
+                    	else {
+                    		counter--;
+                    	}
+                        
                     }
+                    else if(entity.getInteractBounds().intersects(link.getInteractBounds()) && pickUp==true && handler.getKeyManager().attack==true) {
+                    	ded = true;
+                    	 
+                    	
+                    }
+                    
                 }
             }
         }

@@ -12,7 +12,7 @@ public class KeyManager implements KeyListener {
 
 	private boolean[] keys,justPressed,cantPress;
 	public boolean up=false, down=false, left=false, right=false,shift, rKey;
-	public boolean pausebutt=false;
+	public boolean pausebutt=false, attack=false;
 
 
 	public KeyManager(){
@@ -42,6 +42,7 @@ public class KeyManager implements KeyListener {
 		left = keys[KeyEvent.VK_A] || keys[KeyEvent.VK_LEFT];
 		right = keys[KeyEvent.VK_D] || keys[KeyEvent.VK_RIGHT];
 		shift = keys[KeyEvent.VK_SHIFT] ;
+		attack = keys[KeyEvent.VK_ENTER];
 
 		pausebutt = keys[KeyEvent.VK_ESCAPE];
 
